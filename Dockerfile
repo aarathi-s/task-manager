@@ -15,8 +15,7 @@ COPY . .
 
 RUN composer install --optimize-autoloader --no-dev
 
-RUN npm install
-RUN npm run build
+
 
 COPY .env.example .env
 RUN php artisan key:generate
