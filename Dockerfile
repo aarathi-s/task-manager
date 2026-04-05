@@ -16,6 +16,9 @@ RUN composer install --optimize-autoloader --no-dev
 COPY .env.example .env
 RUN php artisan key:generate
 
+RUN chmod -R 775 storage bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache
+
 COPY docker/nginx.conf /etc/nginx/sites-enabled/default
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
