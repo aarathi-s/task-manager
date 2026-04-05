@@ -15,10 +15,12 @@ COPY . .
 
 RUN composer install --optimize-autoloader --no-dev
 
+# ✅ Build frontend assets
+RUN npm install && npm run build
 
-
-COPY .env.example .env
-RUN php artisan key:generate
+# Only copy .env.example if .env doesn't exist
+RUN cp -n .env.example .env
+RUN php artisan key:generate --force
 
 RUN chmod -R 775 storage bootstrap/cache
 RUN chown -R www-data:www-data storage bootstrap/cache
